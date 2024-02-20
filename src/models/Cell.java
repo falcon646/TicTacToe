@@ -8,6 +8,12 @@ public class Cell {
 
     private Player player;
 
+    public  Cell(int row , int coloumn){
+        this.row = row;
+        this.coloum = coloumn;
+        this.cellState = CellState.EMPTY;
+    }
+
     public int getRow() {
         return row;
     }
@@ -38,5 +44,14 @@ public class Cell {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void display(){
+        if(player == null){
+            System.out.print(" | - | ");
+        }
+        else{
+            System.out.print(" | "+player.getSymbol().getaChar()+" |");
+        }
     }
 }

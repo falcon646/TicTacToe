@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Scanner;
+
 public class Player {
 
     private Long id;
@@ -8,6 +10,16 @@ public class Player {
     private Symbol symbol;
 
     private PlayerType playerType;
+
+    private Scanner scanner;
+
+    public Player(Long id, String name, Symbol symbol , PlayerType playerType){
+        this.id = id;
+        this.name = name;
+        this.symbol = symbol;
+        this.playerType = playerType;
+        scanner = new Scanner(System.in);
+    }
 
     public Long getId() {
         return id;
@@ -39,5 +51,13 @@ public class Player {
 
     public void setPlayerType(PlayerType playerType) {
         this.playerType = playerType;
+    }
+
+    public Move makeMove(){
+        System.out.println("Enter the row and coloum where you want to make your move");
+        int row = scanner.nextInt();
+        int col = scanner.nextInt();
+
+        return new Move(new Cell(row,col),this);
     }
 }
