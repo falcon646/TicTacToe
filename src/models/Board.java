@@ -39,8 +39,8 @@ public class Board {
         for (List<Cell> row: board){
             for(Cell cell: row){
                 cell.display();
-                }
             }
         }
     }
 }
+
