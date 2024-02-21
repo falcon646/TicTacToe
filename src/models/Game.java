@@ -93,12 +93,32 @@ public class Game {
         board.printBoard();
     }
 
+    public boolean validateMove(Move move){
+        int row = move.getCell().getRow();
+        int col = move.getCell().getColoum();
+        if(row >= board.getSize()) {
+            return false;
+        }
+        if(col >= board.getSize()){
+            return false;
+        }
+        if(board.getBoard().get(row).get(col).getCellState().equals(CellState.EMPTY)){
+            return true;
+        }
+        return false;
+    }
+
     public void makeMove(){
         Player currentMovePlayer = players.get(nextMovePlayerIndex);
         System.out.println("It is "+currentMovePlayer.getName() +"'s turn. Please make your move !");
         Move move = currentMovePlayer.makeMove();
         System.out.println(currentMovePlayer.getName() + " has mad a move at row : "+ move.getCell().getRow() +" & coloum : "+move.getCell().getColoum());
+
         // validation of the move
+        if(validateMove(move)){
+            System.out.println("Invalid move, please check again");
+            return;
+        }
 
         // updating the move
         int row = move.getCell().getRow();
