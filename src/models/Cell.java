@@ -48,10 +48,10 @@ public class Cell {
 
     public void display(){
         if(player == null){
-            System.out.print(" | - | ");
+            System.out.print("| - |");
         }
         else{
-            System.out.print(" | "+player.getSymbol().getaChar()+" |");
+            System.out.print("| "+player.getSymbol().getaChar()+" |");
         }
     }
 }

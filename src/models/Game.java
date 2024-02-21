@@ -27,6 +27,7 @@ public class Game {
         this.nextMovePlayerIndex = 0;
         this.gameState = GameState.IN_PROGRESS;
         this.moves = new ArrayList<>();
+        this.board = new Board(dimension);
     }
 
     public Board getBoard() {
@@ -120,11 +121,11 @@ public class Game {
     public void makeMove(){
         Player currentMovePlayer = players.get(nextMovePlayerIndex);
         System.out.println("It is "+currentMovePlayer.getName() +"'s turn. Please make your move !");
-        Move move = currentMovePlayer.makeMove();
+        Move move = currentMovePlayer.makeMove(board);
         System.out.println(currentMovePlayer.getName() + " has mad a move at row : "+ move.getCell().getRow() +" & coloum : "+move.getCell().getColoum());
 
         // validation of the move
-        if(validateMove(move)){
+        if(!validateMove(move)){
             System.out.println("Invalid move, please check again");
             return;
         }
@@ -152,6 +153,26 @@ public class Game {
             gameState = GameState.DRAW;
         }
 
+    }
+
+    public  void undo(){
+        if (moves.size() == 0) {
+            System.out.println("No moves to undo");
+            return;
+        }
+            Move lastMove = moves.get(moves.size()-1);
+            moves.remove(lastMove);
+
+            Cell cell = lastMove.getCell();
+            cell.setPlayer(null);
+            cell.setCellState(CellState.EMPTY);
+
+            for (WinningStrategy winningStrategy : winningStrategies){
+                winningStrategy.handleUndo(board, lastMove);
+            }
+
+            nextMovePlayerIndex -= 1;
+            nextMovePlayerIndex = (nextMovePlayerIndex + players.size()) % players.size();
     }
 
     public static class Builder {

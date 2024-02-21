@@ -1,6 +1,7 @@
 package models;
 
 import strategies.BotPlayingStrategy;
+import strategies.BotPlayingStrategyFactory;
 
 public class Bot extends Player{
 
@@ -10,7 +11,7 @@ public class Bot extends Player{
     public Bot(Long id, String name , Symbol symbol, BotDifficultyLevel botDifficultyLevel){
         super(id,name,symbol, PlayerType.BOT);
         this.botDifficultyLevel = botDifficultyLevel;
-        // TODO // this.botPlayingStrategy = add a factory
+        this.botPlayingStrategy = BotPlayingStrategyFactory.getBotPlayingStrategyForDifficulty(botDifficultyLevel);
     }
 
     public BotDifficultyLevel getBotDifficultyLevel() {
@@ -27,5 +28,12 @@ public class Bot extends Player{
 
     public void setBotPlayingStrategy(BotPlayingStrategy botPlayingStrategy) {
         this.botPlayingStrategy = botPlayingStrategy;
+    }
+
+    @Override
+    public Move makeMove(Board board) {
+        Move move = botPlayingStrategy.makeMove(board);
+        move.setPlayer(this);
+        return move;
     }
 }
