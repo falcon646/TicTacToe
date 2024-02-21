@@ -93,6 +93,15 @@ public class Game {
         board.printBoard();
     }
 
+    public boolean checkWinner(Board board , Move move){
+        for(WinningStrategy winningStrategy : winningStrategies ){
+            if(winningStrategy.checkWinner(board , move)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean validateMove(Move move){
         int row = move.getCell().getRow();
         int col = move.getCell().getColoum();
@@ -130,6 +139,19 @@ public class Game {
 
         Move finalMove = new Move(cellToChange , currentMovePlayer);
         moves.add(finalMove);
+
+        nextMovePlayerIndex += 1;
+        nextMovePlayerIndex %= players.size();
+
+        // check game status
+        if (checkWinner(board, finalMove)) {
+            gameState = GameState.WINNER;
+            winner = currentMovePlayer;
+        }
+        else if(moves.size() == board.getSize() * board.getSize()){
+            gameState = GameState.DRAW;
+        }
+
     }
 
     public static class Builder {
