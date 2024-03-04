@@ -1,5 +1,6 @@
 ## TicTacToe Game Design Summary
-For more detailed information, refer to the full blog post: [TicTacToe Game Design Case Study](https://blog.ashwinsomnath.in/blogs/lld-case-study-2-:-design-tictactoe)
+For more detailed information, refer to the full blog post: [TicTacToe Game Design Case Study](https://blog.ashwinsomnath.in/blogs/lld-case-study-2-:-design-tictactoe) 
+
 This document outlines the design process for a TicTacToe game, covering various aspects such as requirements gathering, class diagrams, design patterns, and code implementation strategies.
 
 #### Overview
